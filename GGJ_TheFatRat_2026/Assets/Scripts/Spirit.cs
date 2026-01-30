@@ -39,9 +39,16 @@ public class Spirit : MonoBehaviour
         {
             Debug.Log("撞到了！");
         }
-        if (otherObject.gameObject.tag == "deadLine")
+        if (otherObject.gameObject.tag == "Spring")
         {
-            Debug.Log("挂了！");
+            Debug.Log("碰到了弹簧！");
+
+            if (otherObject.contacts[0].normal == new Vector2(0, 1))
+            {
+                //float springForce = otherObject.gameObject.springForce;
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10.5f, 0);
+
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D otherObject)

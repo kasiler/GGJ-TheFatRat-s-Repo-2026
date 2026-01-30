@@ -63,9 +63,8 @@ public class Player : MonoBehaviour
             if (otherObject.contacts[0].normal == new Vector2(0, 1))
             {
                 //float springForce = otherObject.gameObject.springForce;
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 7.5f, 0);
+                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10.5f, 0);
                 isGround = false;
-                Spirit_RB.velocity = new Vector3(0, 7.5f, 0);
 
             }
         }
