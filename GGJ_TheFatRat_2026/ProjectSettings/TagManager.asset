@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - deadLine
+  - Ground
+  - character
+  - Spring
   layers:
   - Default
   - TransparentFX
