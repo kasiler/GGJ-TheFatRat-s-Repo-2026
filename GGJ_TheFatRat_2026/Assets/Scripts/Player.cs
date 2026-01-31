@@ -11,11 +11,16 @@ public class Player : MonoBehaviour
     private bool isGround = false;
     [SerializeField] SpriteRenderer Spirit_SR;
     [SerializeField] Rigidbody2D Spirit_RB;
+    private Vector3 deadPosition;
+    private Vector3 deadVelocity;
+    private Rigidbody2D rb;
+
 
     [Header("Ground Check")]
     public Vector3 detectionOffset;
     public float detectionRadius = 0.2f;
     public LayerMask groundLayer;
+
 
     void Start()
     {
@@ -72,10 +77,15 @@ public class Player : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D otherObject)
     {
-        //if (otherObject.gameObject.tag == "deadLine")
-        //{
-        //    Debug.Log("挂了！");
-        //}
+        if (otherObject.gameObject.tag == "deadLine")
+        {
+            deadPosition = transform.position;
+            rb = GetComponent<Rigidbody2D>();
+            deadVelocity = rb.velocity;
+            rb.velocity = new Vector3(deadVelocity.x, 0 ,deadVelocity.z);
+            transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
+            Debug.Log("挂了！");
+        }
     }
     void GroundDetection()
     {

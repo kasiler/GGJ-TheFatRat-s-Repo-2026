@@ -6,7 +6,9 @@ using UnityEngine;
 
 public class Spirit : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Vector3 deadPosition;
+    private Vector3 deadVelocity;
+    private Rigidbody2D rb;
     void Start()
     {
 
@@ -55,6 +57,11 @@ public class Spirit : MonoBehaviour
     {
         if (otherObject.gameObject.tag == "deadLine")
         {
+            deadPosition = transform.position;
+            rb = GetComponent<Rigidbody2D>();
+            deadVelocity = rb.velocity;
+            rb.velocity = new Vector3(deadVelocity.x, 0, deadVelocity.z);
+            transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
             Debug.Log("挂了！");
         }
     }
