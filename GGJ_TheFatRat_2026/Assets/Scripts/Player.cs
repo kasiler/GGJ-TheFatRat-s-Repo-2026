@@ -8,20 +8,23 @@ public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
     [SerializeField] public float jumpForce = 4.5f;
-    private bool isGround = true;
-    //public static bool isGround = true;
+    private bool isGround = false;
     [SerializeField] SpriteRenderer Spirit_SR;
     [SerializeField] Rigidbody2D Spirit_RB;
 
-    // Start is called before the first frame update
+    [Header("Ground Check")]
+    public Vector3 detectionOffset;
+    public float detectionRadius = 0.2f;
+    public LayerMask groundLayer;
+
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
+        GroundDetection();
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
@@ -41,7 +44,6 @@ public class Player : MonoBehaviour
             if (isGround)
             {
                 GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
-                isGround = false;
                 Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
             }
         }
@@ -50,16 +52,11 @@ public class Player : MonoBehaviour
     {
         if (otherObject.gameObject.tag == "Ground")
         {
-            Debug.Log("撞到了！");
-            if (otherObject.contacts[0].normal == new Vector2(0, 1))
-            {
-                isGround = true;
-            }
+
         }
         if (otherObject.gameObject.tag == "Spring")
         {
             Debug.Log("碰到了弹簧！");
-
             if (otherObject.contacts[0].normal == new Vector2(0, 1))
             {
                 //float springForce = otherObject.gameObject.springForce;
@@ -80,17 +77,22 @@ public class Player : MonoBehaviour
         //    Debug.Log("挂了！");
         //}
     }
-    //void GroundDetection()
-    //{
-    //    Collider2D hit = Physics2D.OverlapCircle(transform.position + detectionOffset, detectionRadius, groundLayer);
-    //    if (hit != nul1)
-    //    {
-    //        isGround = true;
-    //    }
-    //    else
-    //    {
-    //        isGround = false;
-    //    }
-    //}
+    void GroundDetection()
+    {
+        Collider2D hit = Physics2D.OverlapCircle(transform.position + detectionOffset, detectionRadius, groundLayer);
+        if (hit != null)
+        {
+            isGround = true;
+        }
+        else
+        {
+            isGround = false;
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + detectionOffset, detectionRadius);
+    }
 
 }

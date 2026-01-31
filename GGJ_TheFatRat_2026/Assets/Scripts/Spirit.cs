@@ -37,11 +37,11 @@ public class Spirit : MonoBehaviour
     {
         if (otherObject.gameObject.tag == "Ground")
         {
-            Debug.Log("撞到了！");
+            //Debug.Log("撞到了！");
         }
         if (otherObject.gameObject.tag == "Spring")
         {
-            Debug.Log("碰到了弹簧！");
+            //Debug.Log("碰到了弹簧！");
 
             if (otherObject.contacts[0].normal == new Vector2(0, 1))
             {
