@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuManager : MonoBehaviour
 {
+    public bool bgm;
+    public bool sound_effect;
     void Start()
     {
         
@@ -22,4 +24,26 @@ public class StartMenuManager : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
     }
+    public void Load()
+    {
+
+    }
+    public void Setting()
+    {
+        SceneManager.LoadScene("settings");
+
+    }
+    public void ClickBGM()
+    {
+        if(bgm)
+        {
+            bgm = false;
+            
+        }
+        else
+        {
+            bgm =true;
+        }
+    }
+
 }

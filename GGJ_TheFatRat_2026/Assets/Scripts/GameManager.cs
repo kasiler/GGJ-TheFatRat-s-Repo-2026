@@ -28,13 +28,4 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NewGame()
-    {
-        SceneManager.LoadScene("opening");
-    }
-    public void Quit()
-    {
-        //UnityEditor.EditorApplication.isPlaying = false;
-        Application.Quit();
-    }
 }

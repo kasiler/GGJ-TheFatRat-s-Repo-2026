@@ -203,7 +203,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 329859174}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1851816464}
+        m_TargetAssemblyTypeName: StartMenuManager, Assembly-CSharp
+        m_MethodName: Setting
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &329859174
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -762,7 +774,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1256086524}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1851816464}
+        m_TargetAssemblyTypeName: StartMenuManager, Assembly-CSharp
+        m_MethodName: Load
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1256086524
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,6 +869,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1326e7eb9b2d88343ac7e53444e95200, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bgm: 0
+  sound_effect: 0
 --- !u!1 &1935214730
 GameObject:
   m_ObjectHideFlags: 0
