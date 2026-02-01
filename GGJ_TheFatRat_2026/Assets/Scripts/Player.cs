@@ -36,6 +36,7 @@ public class Player : MonoBehaviour
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = false;
             Spirit_SR.transform.Translate(-moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
+            //GetComponent<Animator>().SetBool("Run", true);
             if(is_same_direction == -1f)
             {
                 Spirit_SR.flipX = true;
@@ -45,11 +46,12 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = false;
             }
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = true;
             Spirit_SR.transform.Translate(moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
+            //GetComponent<Animator>().SetBool("Run", true);
             if (is_same_direction == -1)
             {
                 Spirit_SR.flipX = false;
@@ -59,13 +61,20 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        else
         {
-            if (isGround)
-            {
+            GetComponent<Animator>().SetBool("Run", false);
+        }
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGround)
+        {
+
                 GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
                 Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
-            }
+                GetComponent<Animator>().SetBool("Jump", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Jump", false);
         }
     }
     private void OnCollisionEnter2D(Collision2D otherObject)

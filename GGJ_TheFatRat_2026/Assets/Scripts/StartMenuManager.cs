@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Video;
 
 public class StartMenuManager : MonoBehaviour
 {
@@ -10,13 +11,18 @@ public class StartMenuManager : MonoBehaviour
     public bool sound_effect;
     public GameObject obj_mark1;
     public GameObject obj_mark2;
+    public VideoPlayer videoClip;
     void Start()
     {
         
     }
     void Update()
     {
-        
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("StartMenu");
+
+        }
     }
     public void NewGame()
     {
@@ -26,6 +32,10 @@ public class StartMenuManager : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         Application.Quit();
+    }
+    public void QuitSetting()
+    {
+        SceneManager.LoadScene("StartMenu");
     }
     public void Load()
     {
@@ -50,6 +60,15 @@ public class StartMenuManager : MonoBehaviour
     {
         SceneManager.LoadScene("Level1");
 
+    }
+    public void play_final_video()
+    {
+
+        videoClip.Play();
+    }
+    public void ActiveObj(GameObject obj)
+    {
+        obj.SetActive(true); 
     }
 
 }
