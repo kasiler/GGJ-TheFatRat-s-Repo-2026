@@ -86,6 +86,17 @@ public class Player : MonoBehaviour
 
             }
         }
+        if (otherObject.gameObject.tag == "Button")
+        {
+            Debug.Log("anniu!");
+            if(otherObject.contacts[0].normal == new Vector2(0,1))
+            {
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }
+            }
+        }
         //if (otherObject.gameObject.tag == "deadLine")
         //{
         //    Debug.Log("挂了！");
