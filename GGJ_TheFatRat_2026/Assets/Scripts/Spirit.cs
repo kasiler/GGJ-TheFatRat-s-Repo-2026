@@ -49,7 +49,6 @@ public class Spirit : MonoBehaviour
             {
                 //float springForce = otherObject.gameObject.springForce;
                 GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10.5f, 0);
-
             }
         }
     }
@@ -64,5 +63,6 @@ public class Spirit : MonoBehaviour
             transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
             Debug.Log("挂了！");
         }
+        
     }
 }
