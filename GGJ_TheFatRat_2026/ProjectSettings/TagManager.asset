@@ -8,6 +8,7 @@ TagManager:
   - Ground
   - character
   - Spring
+  - Button
   layers:
   - Default
   - TransparentFX
