@@ -46,5 +46,10 @@ public class StartMenuManager : MonoBehaviour
         sound_effect = !sound_effect;
         obj_mark2.SetActive(sound_effect);
     }
+    public void gotoLevel1()
+    {
+        SceneManager.LoadScene("Level1");
+
+    }
 
 }

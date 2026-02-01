@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AutoWalkToTarget : MonoBehaviour
 {
@@ -34,7 +35,12 @@ public class AutoWalkToTarget : MonoBehaviour
         {
             // 到达终点：停止移动+关闭走路动画
             anim.SetBool("IsWalk", false);
+            gotoTeachLevel();
             enabled = false; // 关闭脚本，避免重复执行
         }
+    }
+    public void gotoTeachLevel()
+    {
+        SceneManager.LoadScene("TeachLevel");
     }
 }
