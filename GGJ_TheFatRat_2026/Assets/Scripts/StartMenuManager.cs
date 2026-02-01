@@ -33,17 +33,10 @@ public class StartMenuManager : MonoBehaviour
         SceneManager.LoadScene("settings");
 
     }
-    public void ClickBGM()
+    public void ClickBGM(GameObject obj)
     {
-        if(bgm)
-        {
-            bgm = false;
-            
-        }
-        else
-        {
-            bgm =true;
-        }
+        bgm = !bgm;
+
     }
 
 }
