@@ -25,14 +25,16 @@ public class AutoWalkToTarget : MonoBehaviour
     void Update()
     {
         // 判断是否到达终点（距离小于0.1则视为到达）
-        if (Vector3.Distance(transform.position, targetPos) > 0.1f)
+        if (Vector3.Distance(transform.position, targetPos) > 1f)
         {
+            
             // 匀速向终点移动（2D中忽略Z轴，保持水平）
             Vector3 moveDir = new Vector3(targetPos.x - transform.position.x, 0, 0).normalized;
             transform.Translate(moveDir * moveSpeed * Time.deltaTime);
         }
         else
         {
+            Debug.Log("distance: ");
             // 到达终点：停止移动+关闭走路动画
             anim.SetBool("IsWalk", false);
             gotoTeachLevel();
