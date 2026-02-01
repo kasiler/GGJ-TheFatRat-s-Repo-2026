@@ -36,7 +36,8 @@ public class Player : MonoBehaviour
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = false;
             Spirit_SR.transform.Translate(-moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
-            if (is_same_direction == -1f)
+            //GetComponent<Animator>().SetBool("Run", true);
+            if(is_same_direction == -1f)
             {
                 Spirit_SR.flipX = true;
             }
@@ -45,11 +46,12 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = false;
             }
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = true;
             Spirit_SR.transform.Translate(moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
+            //GetComponent<Animator>().SetBool("Run", true);
             if (is_same_direction == -1)
             {
                 Spirit_SR.flipX = false;
@@ -59,13 +61,20 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = true;
             }
         }
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
+        else
         {
-            if (isGround)
-            {
+            GetComponent<Animator>().SetBool("Run", false);
+        }
+        if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGround)
+        {
+
                 GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
                 Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
-            }
+                GetComponent<Animator>().SetBool("Jump", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Jump", false);
         }
     }
     private void OnCollisionEnter2D(Collision2D otherObject)
@@ -81,7 +90,7 @@ public class Player : MonoBehaviour
             if (otherObject.contacts[0].normal == normal)
             {
                 float springForce = otherObject.gameObject.GetComponent<Spring>().springForce;
-                GetComponent<Rigidbody2D>().velocity = new Vector2(springForce * normal.x, springForce * normal.y);
+                GetComponent<Rigidbody2D>().velocity = new Vector2(springForce*normal.x, springForce*normal.y);
                 isGround = false;
 
             }
@@ -89,10 +98,12 @@ public class Player : MonoBehaviour
         if (otherObject.gameObject.tag == "Button")
         {
             Debug.Log("anniu!");
-            for (int i = 0; i < otherObject.transform.childCount; i++)
+            if(otherObject.contacts[0].normal == new Vector2(0,1))
             {
-
-                Destroy(otherObject.transform.GetChild(i).gameObject);
+                for (int i = 0; i < transform.childCount; i++)
+                {
+                    Destroy(transform.GetChild(i).gameObject);
+                }
             }
         }
         //if (otherObject.gameObject.tag == "deadLine")
@@ -107,7 +118,7 @@ public class Player : MonoBehaviour
             deadPosition = transform.position;
             rb = GetComponent<Rigidbody2D>();
             deadVelocity = rb.velocity;
-            rb.velocity = new Vector3(deadVelocity.x, 0, deadVelocity.z);
+            rb.velocity = new Vector3(deadVelocity.x, 0 ,deadVelocity.z);
             transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
             Debug.Log("挂了！");
         }

@@ -824,7 +824,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76fbd966e3d04214a860672b15608d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelName: Box_hit
+  levelName: Level2
   portals:
   - {fileID: 1132320044}
   - {fileID: 10919339}
