@@ -77,10 +77,11 @@ public class Player : MonoBehaviour
         if (otherObject.gameObject.tag == "Spring")
         {
             Debug.Log("碰到了弹簧！");
-            if (otherObject.contacts[0].normal == new Vector2(0, 1))
+            Vector2 normal = otherObject.gameObject.GetComponent<Spring>().normal;
+            if (otherObject.contacts[0].normal == normal)
             {
-                //float springForce = otherObject.gameObject.springForce;
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10.5f, 0);
+                float springForce = otherObject.gameObject.GetComponent<Spring>().springForce;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(springForce*normal.x, springForce*normal.y);
                 isGround = false;
 
             }
