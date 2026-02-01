@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     private bool isGround = false;
     [SerializeField] SpriteRenderer Spirit_SR;
     [SerializeField] Rigidbody2D Spirit_RB;
+    public float is_same_direction = -1;
     private Vector3 deadPosition;
     private Vector3 deadVelocity;
     private Rigidbody2D rb;
@@ -34,15 +35,29 @@ public class Player : MonoBehaviour
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = false;
-            Spirit_SR.transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
-            Spirit_SR.flipX = true;
+            Spirit_SR.transform.Translate(-moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
+            if(is_same_direction == -1f)
+            {
+                Spirit_SR.flipX = true;
+            }
+            else
+            {
+                Spirit_SR.flipX = false;
+            }
         }
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = true;
-            Spirit_SR.transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-            Spirit_SR.flipX = false;
+            Spirit_SR.transform.Translate(moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
+            if (is_same_direction == -1)
+            {
+                Spirit_SR.flipX = false;
+            }
+            else
+            {
+                Spirit_SR.flipX = true;
+            }
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W))
         {
