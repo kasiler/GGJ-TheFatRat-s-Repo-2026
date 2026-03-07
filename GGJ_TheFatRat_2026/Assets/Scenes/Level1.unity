@@ -3031,6 +3031,10 @@ PrefabInstance:
       value: -0.91
       objectReference: {fileID: 0}
     - target: {fileID: 7968361499344741359, guid: 07f611a749d30f64ba99f575bb471170, type: 3}
+      propertyPath: is_same_direction
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7968361499344741359, guid: 07f611a749d30f64ba99f575bb471170, type: 3}
       propertyPath: groundLayer.m_Bits
       value: 64
       objectReference: {fileID: 0}

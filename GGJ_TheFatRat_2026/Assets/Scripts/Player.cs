@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = false;
             }
         }
-        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
             GetComponent<SpriteRenderer>().flipX = true;
@@ -61,10 +61,10 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = true;
             }
         }
-        else
-        {
-            GetComponent<Animator>().SetBool("Run", false);
-        }
+        //else
+        //
+        //GetComponent<Animator>().SetBool("Run", false);
+        //
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGround)
         {
 
@@ -72,10 +72,10 @@ public class Player : MonoBehaviour
                 Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
                 GetComponent<Animator>().SetBool("Jump", true);
         }
-        else
-        {
-            GetComponent<Animator>().SetBool("Jump", false);
-        }
+        //else
+        //
+        //GetComponent<Animator>().SetBool("Jump", false);
+        //
     }
     private void OnCollisionEnter2D(Collision2D otherObject)
     {
@@ -98,12 +98,9 @@ public class Player : MonoBehaviour
         if (otherObject.gameObject.tag == "Button")
         {
             Debug.Log("anniu!");
-            if(otherObject.contacts[0].normal == new Vector2(0,1))
+            for (int i = 0; i < otherObject.transform.childCount; i++)
             {
-                for (int i = 0; i < transform.childCount; i++)
-                {
-                    Destroy(transform.GetChild(i).gameObject);
-                }
+                Destroy(otherObject.transform.GetChild(i).gameObject);
             }
         }
         //if (otherObject.gameObject.tag == "deadLine")

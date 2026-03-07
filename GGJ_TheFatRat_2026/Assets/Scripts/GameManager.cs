@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         sc = SceneManager.GetActiveScene();
+
     }
     private void Update()
     {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(sc.name);
         }
+
     }
     
     public bool CheckAllPortals(Portal[] portals)
