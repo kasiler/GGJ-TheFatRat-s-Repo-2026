@@ -4,10 +4,10 @@ using UnityEngine.UI;
 public class TipsUIController : MonoBehaviour
 {
     // 拖拽赋值：把Hierarchy中的TipsButton和TipsPanel拖到对应槽位
-    public Button tipsButton;
+    public GameObject tipsButton;
     public GameObject tipsPanel;
     // 关闭按钮（需在Inspector中拖拽赋值）
-    public Button closeButton;
+    public GameObject closeButton;
 
     void Start()
     {
@@ -26,7 +26,7 @@ public class TipsUIController : MonoBehaviour
     }
 
     // 单独隐藏面板（给关闭按钮用）
-    void HideTipsPanel()
+    public void CloseTipsPanel()
     {
         tipsPanel.SetActive(false);
     }

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public string levelName;
+    public string next_levelName;
     public Portal[] portals;
     Scene sc;
     private void Start()
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         //Time.timeScale = 1.0f;
         if (CheckAllPortals(portals))
         {
-            SceneManager.LoadScene(levelName);
+            SceneManager.LoadScene(next_levelName);
         }
         if(Input.GetKey(KeyCode.R))
         {

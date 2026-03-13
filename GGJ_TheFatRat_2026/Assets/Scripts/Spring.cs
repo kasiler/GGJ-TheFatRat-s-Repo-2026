@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spring : MonoBehaviour
 {
-    public float springForce = 10.5f;
+    public float springForce;
     public Vector2 normal = new Vector2(0,1);
     public float amplitude = 0.5f;  // 浮动幅度
     public float frequency = 1f;    // 浮动频率

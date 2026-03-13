@@ -44,11 +44,11 @@ public class Spirit : MonoBehaviour
         if (otherObject.gameObject.tag == "Spring")
         {
             //Debug.Log("碰到了弹簧！");
-
+            Vector2 normal = otherObject.gameObject.GetComponent<Spring>().normal;
             if (otherObject.contacts[0].normal == new Vector2(0, 1))
             {
-                //float springForce = otherObject.gameObject.springForce;
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, 10.5f, 0);
+                float springForce = otherObject.gameObject.GetComponent<Spring>().springForce;
+                GetComponent<Rigidbody2D>().velocity = new Vector2(springForce*normal.x, springForce*normal.y);
             }
         }
     }
@@ -61,7 +61,6 @@ public class Spirit : MonoBehaviour
             deadVelocity = rb.velocity;
             rb.velocity = new Vector3(deadVelocity.x, 0, deadVelocity.z);
             transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
-            Debug.Log("挂了！");
         }
         
     }

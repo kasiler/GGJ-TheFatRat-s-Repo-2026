@@ -15,4 +15,14 @@ public class Button : MonoBehaviour
     {
         
     }
+    private void OnCollisionEnter2D(Collision2D otherObject)
+    {
+        if (otherObject.gameObject.tag == "character")
+        {
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Destroy(transform.GetChild(i).gameObject);
+            }
+        }
+    }
 }

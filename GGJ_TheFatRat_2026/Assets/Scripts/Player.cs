@@ -7,7 +7,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
-    [SerializeField] public float jumpForce = 4.5f;
+    [SerializeField] public float jumpForce;
     private bool isGround = false;
     [SerializeField] SpriteRenderer Spirit_SR;
     [SerializeField] Rigidbody2D Spirit_RB;
@@ -15,11 +15,12 @@ public class Player : MonoBehaviour
     private Vector3 deadPosition;
     private Vector3 deadVelocity;
     private Rigidbody2D rb;
+    private Vector3 currentScale;
 
 
     [Header("Ground Check")]
     public Vector3 detectionOffset;
-    public float detectionRadius = 0.2f;
+    public float detectionRadius;
     public LayerMask groundLayer;
 
 
@@ -34,9 +35,12 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
         {
             transform.Translate(moveSpeed * Time.deltaTime, 0, 0);
-            GetComponent<SpriteRenderer>().flipX = false;
+            currentScale = transform.localScale;
+            currentScale.x = Mathf.Abs(currentScale.x);
+            transform.localScale = currentScale;
+            detectionOffset.x = -Mathf.Abs(detectionOffset.x);
             Spirit_SR.transform.Translate(-moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
-            //GetComponent<Animator>().SetBool("Run", true);
+            GetComponent<Animator>().SetBool("Run", true);
             if(is_same_direction == -1f)
             {
                 Spirit_SR.flipX = true;
@@ -46,12 +50,15 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = false;
             }
         }
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
         {
             transform.Translate(-moveSpeed * Time.deltaTime, 0, 0);
-            GetComponent<SpriteRenderer>().flipX = true;
+            currentScale = transform.localScale;
+            currentScale.x = -Mathf.Abs(currentScale.x);
+            transform.localScale = currentScale;
+            detectionOffset.x = Mathf.Abs(detectionOffset.x);
             Spirit_SR.transform.Translate(moveSpeed * Time.deltaTime * (-is_same_direction), 0, 0);
-            //GetComponent<Animator>().SetBool("Run", true);
+            GetComponent<Animator>().SetBool("Run", true);
             if (is_same_direction == -1)
             {
                 Spirit_SR.flipX = false;
@@ -61,21 +68,26 @@ public class Player : MonoBehaviour
                 Spirit_SR.flipX = true;
             }
         }
-        //else
-        //
-        //GetComponent<Animator>().SetBool("Run", false);
-        //
+        else
+        {
+            GetComponent<Animator>().SetBool("Run", false);
+        }
         if ((Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) && isGround)
         {
-
-                GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
-                Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
-                GetComponent<Animator>().SetBool("Jump", true);
+            //让玩家和幽灵跳起来
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
+            Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
+            GetComponent<Animator>().SetBool("Jump", true);
+                
         }
-        //else
-        //
-        //GetComponent<Animator>().SetBool("Jump", false);
-        //
+        else if(!isGround)
+        {
+            GetComponent<Animator>().SetBool("Jump", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Jump", false);
+        }
     }
     private void OnCollisionEnter2D(Collision2D otherObject)
     {
@@ -95,18 +107,6 @@ public class Player : MonoBehaviour
 
             }
         }
-        if (otherObject.gameObject.tag == "Button")
-        {
-            Debug.Log("anniu!");
-            for (int i = 0; i < otherObject.transform.childCount; i++)
-            {
-                Destroy(otherObject.transform.GetChild(i).gameObject);
-            }
-        }
-        //if (otherObject.gameObject.tag == "deadLine")
-        //{
-        //    Debug.Log("挂了！");
-        //}
     }
     private void OnTriggerEnter2D(Collider2D otherObject)
     {
@@ -117,7 +117,6 @@ public class Player : MonoBehaviour
             deadVelocity = rb.velocity;
             rb.velocity = new Vector3(deadVelocity.x, 0 ,deadVelocity.z);
             transform.position = new Vector3(deadPosition.x, 9.5f, deadPosition.z);
-            Debug.Log("挂了！");
         }
     }
     void GroundDetection()
@@ -126,10 +125,24 @@ public class Player : MonoBehaviour
         if (hit != null)
         {
             isGround = true;
+            //当角色落地的时候，手再插兜
+            Transform body = transform.Find("body");
+            body.gameObject.SetActive(true);
+            Transform forearm = transform.Find("forearm");
+            forearm.gameObject.SetActive(false);
+            Transform body_noarm = transform.Find("body_noarm");
+            body_noarm.gameObject.SetActive(false);
         }
         else
         {
             isGround = false;
+            //将玩家的body隐藏，然后让手和没有手的body亮出来
+            Transform body = transform.Find("body");
+            body.gameObject.SetActive(false);
+            Transform forearm = transform.Find("forearm");
+            forearm.gameObject.SetActive(true);
+            Transform body_noarm = transform.Find("body_noarm");
+            body_noarm.gameObject.SetActive(true);
         }
     }
     private void OnDrawGizmos()

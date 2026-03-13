@@ -16,16 +16,17 @@ public class AutoWalkToTarget : MonoBehaviour
     {
         // 初始化：获取动画组件，人物回到起点，设置目标为终点
         anim = GetComponent<Animator>();
-        transform.position = startPoint.position;
-        targetPos = endPoint.position;
         // 开启走路动画
         anim.SetBool("IsWalk", true);
+        transform.position = startPoint.position;
+        targetPos = endPoint.position;
+        
     }
 
     void Update()
     {
-        // 判断是否到达终点（距离小于0.1则视为到达）
-        if (Vector3.Distance(transform.position, targetPos) > 1f)
+        // 判断是否到达终点（距离小于0.1则视为到达）（实测发现如果用0.1，角色会一直卡在那里，因为距离计算的是中心的距离）
+        if (Vector3.Distance(transform.position, targetPos) > 1.5f)
         {
             
             // 匀速向终点移动（2D中忽略Z轴，保持水平）
