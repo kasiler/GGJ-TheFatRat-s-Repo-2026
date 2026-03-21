@@ -78,6 +78,7 @@ public class Player : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector3(0, jumpForce, 0);
             Spirit_RB.velocity = new Vector3(0, jumpForce, 0);
             GetComponent<Animator>().SetBool("Jump", true);
+            GetComponent<AudioSource>().Play();
                 
         }
         else if(!isGround)
@@ -104,7 +105,7 @@ public class Player : MonoBehaviour
                 float springForce = otherObject.gameObject.GetComponent<Spring>().springForce;
                 GetComponent<Rigidbody2D>().velocity = new Vector2(springForce*normal.x, springForce*normal.y);
                 isGround = false;
-
+                GetComponent<AudioSource>().Play();
             }
         }
     }

@@ -37,7 +37,7 @@ public class StartMenuManager : MonoBehaviour
     }
     public void Load()
     {
-
+        SceneManager.LoadScene("opening");
     }
     public void Setting()
     {

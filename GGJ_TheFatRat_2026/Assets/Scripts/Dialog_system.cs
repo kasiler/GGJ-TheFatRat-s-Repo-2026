@@ -11,12 +11,12 @@ public class Dialog_system : MonoBehaviour
 {
     [Header("UI组件")]
     public Text textLabel;
-    public Image faceImage;
+    //public Image faceImage;
     [Header("文本文件")]
     public TextAsset textFile;
     [Header("头像")]
-    public Sprite  Sspirit;
-    public Sprite Sboy;
+    public Image spirit;
+    public Image boy;
 
     public int index;
     public float textSpeed;
@@ -38,12 +38,12 @@ public class Dialog_system : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K) && index == textList.Count)
+        if (Input.GetKeyDown(KeyCode.E) && index == textList.Count)
         {
             gameObject.SetActive(false);
             index = 0;
         }
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if(textFinished && !cancelTyping)
             {
@@ -64,6 +64,7 @@ public class Dialog_system : MonoBehaviour
         foreach (var line in lineData)
         {
             textList.Add(line);
+            //UnityEngine.Debug.Log(line);
         }
     }
 
@@ -71,16 +72,26 @@ public class Dialog_system : MonoBehaviour
     {
         textFinished = false;
         textLabel.text = "";
-        switch(textList[index])
+        // switch (textList[index])
+        // {
+        //     case "boy":
+        //         UnityEngine.Debug.Log("walked");
+        //         spirit.gameObject.SetActive(false);
+        //         boy.gameObject.SetActive(true);
+        //         index++;
+        //         break;
+        //     case "spirit":
+        //         boy.gameObject.SetActive(false);
+        //         spirit.gameObject.SetActive(true);
+        //         index++;
+        //         break;
+        // }
+        if (textList[index] == "boy")
         {
-            case "boy":
-                faceImage.sprite = Sboy;
-                index ++;
-                break;
-            case "spirit":
-                faceImage.sprite = Sspirit;
-                index ++;
-                break;
+            UnityEngine.Debug.Log("walked");
+            spirit.gameObject.SetActive(false);
+            boy.gameObject.SetActive(true);
+            index++;
         }
 
         // for (int i = 0; i < textList[index].Length; i++)

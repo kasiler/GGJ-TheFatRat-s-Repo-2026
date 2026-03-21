@@ -271,7 +271,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &6369820843157938621
 MonoBehaviour:
@@ -925,3 +925,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   next_levelName: 
   portals: []
+  OnLevelPass:
+    m_PersistentCalls:
+      m_Calls: []
+  fadeImage: {fileID: 0}
+  fadeSpeed: 1

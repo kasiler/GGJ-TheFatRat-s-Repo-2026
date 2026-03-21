@@ -9,24 +9,27 @@ EditorBuildSettings:
     path: Assets/Scenes/StartMenu.unity
     guid: 2b09ecee9c71b6f418a547a06834a1c7
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
-  - enabled: 1
-    path: Assets/Scenes/settings.unity
-    guid: a6a8dde65ef4a394093d6c9e4eb80f4e
-  - enabled: 1
     path: Assets/Scenes/TeachLevel.unity
     guid: 3903dbcdefe2b3647afae63d9209bb87
   - enabled: 1
     path: Assets/Scenes/Box_hit.unity
     guid: 4d55fc48bd17e2041ae0238ccd87e40d
   - enabled: 1
+    path: Assets/Scenes/Level1.unity
+    guid: 8c9cfa26abfee488c85f1582747f6a02
+  - enabled: 1
     path: Assets/Scenes/Opening.unity
     guid: 9a3ea2e8fe80b254ab21237e86f5029d
+  - enabled: 1
+    path: Assets/Scenes/Level2.unity
+    guid: b7bf8975a053c2546b5f14687e182392
+  - enabled: 1
+    path: Assets/Scenes/Level3.unity
+    guid: 9e4b0d55314b39145834c8b113b8ec94
   - enabled: 1
     path: Assets/Scenes/Final_scene.unity
     guid: 4844d656baeac6a4eb22880ef969aac0
   - enabled: 1
-    path: Assets/Scenes/Level2.unity
-    guid: b7bf8975a053c2546b5f14687e182392
+    path: Assets/Scenes/settings.unity
+    guid: a6a8dde65ef4a394093d6c9e4eb80f4e
   m_configObjects: {}

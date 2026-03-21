@@ -15,6 +15,8 @@ public class Portal : MonoBehaviour
     public float frequency = 1f;    // 浮动频率
     private Vector3 startPosition;  // 初始位置
     public int rdNum = 0;
+
+    public static Action OnPortalTriggered;
     void Start()
     {
         startPosition = transform.position;
@@ -36,6 +38,7 @@ public class Portal : MonoBehaviour
         if (otherObject.gameObject.tag == "character")
         {
             character_has_enter = true;
+            OnPortalTriggered?.Invoke();
         }
     }
     private void OnTriggerExit2D(Collider2D otherObject)
