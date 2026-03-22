@@ -92,4 +92,8 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(sc.name);
     }
+    public void NextLevel()
+    {
+        if(next_levelName != null) SceneManager.LoadScene(next_levelName);
+    }
 }

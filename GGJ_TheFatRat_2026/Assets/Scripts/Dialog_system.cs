@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Dialog_system : MonoBehaviour
@@ -22,28 +24,40 @@ public class Dialog_system : MonoBehaviour
     public float textSpeed;
     bool textFinished;
     bool cancelTyping;
+    static bool talked = false;
+    static string last_scene_name;
     List<string> textList = new List<string>();
 
     void Awake()
     {
+        string curr_scene_name = SceneManager.GetActiveScene().name;
+        bool is_new_scene = curr_scene_name != last_scene_name;
+        last_scene_name = curr_scene_name;
+        if(talked == true && is_new_scene == false)
+        {
+            transform.parent.gameObject.SetActive(false);
+        }
+        if(is_new_scene == true) talked = false;
         GetTextFromFile(textFile);
+
     }
     private void OnEnable()
     {
         textFinished = true;
-        StartCoroutine(SetTextUI());
+        if(talked == false) StartCoroutine(SetTextUI());
         // textLabel.text = textList[index];
         // index ++;
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && index == textList.Count)
+        if (Input.GetKeyDown(KeyCode.E) && index == textList.Count && talked == false)
         {
-            gameObject.SetActive(false);
+            talked = true;
+            transform.parent.gameObject.SetActive(false);
             index = 0;
         }
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && talked == false)
         {
             if(textFinished && !cancelTyping)
             {
@@ -61,7 +75,7 @@ public class Dialog_system : MonoBehaviour
         textList.Clear();
         index = 0;
         var lineData = file.text.Split('\n');
-        foreach (var line in lineData)
+        foreach (string line in lineData)
         {
             textList.Add(line);
             //UnityEngine.Debug.Log(line);
@@ -72,27 +86,28 @@ public class Dialog_system : MonoBehaviour
     {
         textFinished = false;
         textLabel.text = "";
-        // switch (textList[index])
-        // {
-        //     case "boy":
-        //         UnityEngine.Debug.Log("walked");
-        //         spirit.gameObject.SetActive(false);
-        //         boy.gameObject.SetActive(true);
-        //         index++;
-        //         break;
-        //     case "spirit":
-        //         boy.gameObject.SetActive(false);
-        //         spirit.gameObject.SetActive(true);
-        //         index++;
-        //         break;
-        // }
-        if (textList[index] == "boy")
+        //UnityEngine.Debug.Log(textList[index]);
+        switch (textList[index].Trim())
         {
-            UnityEngine.Debug.Log("walked");
-            spirit.gameObject.SetActive(false);
-            boy.gameObject.SetActive(true);
-            index++;
+            case "boy":
+                //UnityEngine.Debug.Log("walked");
+                spirit.gameObject.SetActive(false);
+                boy.gameObject.SetActive(true);
+                index++;
+                break;
+            case "spirit":
+                boy.gameObject.SetActive(false);
+                spirit.gameObject.SetActive(true);
+                index++;
+                break;
         }
+        // if (textList[index] == "boy")
+        // {
+        //     UnityEngine.Debug.Log("walked");
+        //     spirit.gameObject.SetActive(false);
+        //     boy.gameObject.SetActive(true);
+        //     index++;
+        // }
 
         // for (int i = 0; i < textList[index].Length; i++)
         // {
